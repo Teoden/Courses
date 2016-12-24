@@ -22,6 +22,27 @@ namespace Courses
             return s_current;            
         }
 
+        public static void Reset()
+        {
+            if (s_current != null)
+            {
+                (s_current as Facade).Dispose();
+                s_current = null;
+            }
+        }
+
+        private void Dispose()
+        {
+            if(modelMap != null)
+            {
+                foreach (var kvp in modelMap)
+                {
+                    kvp.Value.Dispose();
+                }
+            }
+            
+        }
+
         private Dictionary<Type, IModel> modelMap;
 
         public void DisposeModel<IFace>()
